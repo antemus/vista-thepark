@@ -1204,6 +1204,7 @@ img {
 .supply-preview-frame {
   width: 100%;
   max-width: 520px;
+  max-height: 520px;
   height: auto;
   margin: 0 auto 16px;
   background: #fdfdfd;
@@ -1218,6 +1219,9 @@ img {
 .supply-preview-frame img {
   width: 100%;
   height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: top;
   display: block;
   transition: transform 0.3s ease;
 }
@@ -2896,5 +2900,36 @@ body.modal-open, html.modal-open {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* ================================================
+   모바일 헤더 관심고객등록 버튼
+   ================================================ */
+.btn-header-register {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #1a7a4a 0%, #0f5c35 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 13px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(26, 122, 74, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-header-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 122, 74, 0.45);
+  color: #fff;
+}
+
+/* 데스크탑(992px 이상)에서는 nav-links에 이미 버튼 있으므로 숨김 */
+@media (min-width: 992px) {
+  .btn-header-register {
+    display: none;
   }
 }
