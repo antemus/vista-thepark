@@ -15,7 +15,7 @@ const SITE_CONFIG = {
     businessHoursWeekday: "09:00 ~ 19:00",
     businessHoursWeekend: "예약제 현장 안내",
     specialties: ["울산 상가/점포 전문", "아파트/오피스텔 매매·임대", "수익형 부동산 자산분석", "문수로 비스타동원 청약상담"],
-    kakaoOpenChat: "https://open.kakao.com/o/sGpdlfki"
+    kakaoOpenChat: "https://open.kakao.com/o/sGpdIfki"
   },
 
   // 단지 기본 정보
