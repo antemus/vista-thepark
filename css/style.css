@@ -2933,3 +2933,89 @@ body.modal-open, html.modal-open {
     display: none;
   }
 }
+
+/* ================================================
+   선착순 긴급 배너 (캐시백 4단계 위)
+   ================================================ */
+.reward-urgency-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.urgency-pulse {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #fca5a5;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulseRed 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseRed {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+/* ================================================
+   사전등록 폼 — 부담없이 등록 안내 박스
+   ================================================ */
+.form-reassure-box {
+  margin: 20px auto 0;
+  max-width: 600px;
+  background: linear-gradient(135deg, rgba(15,92,53,0.07) 0%, rgba(15,92,53,0.13) 100%);
+  border: 1px solid rgba(15, 92, 53, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.reassure-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 12px;
+}
+
+.reassure-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.reassure-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.reassure-urgency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #b91c1c;
+  font-weight: 600;
+  padding-top: 10px;
+  border-top: 1px solid rgba(185, 28, 28, 0.15);
+}
+
+.urgency-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulseRed 1.2s ease-in-out infinite;
+}
