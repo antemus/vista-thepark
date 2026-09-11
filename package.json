@@ -1,0 +1,13 @@
+{
+  "name": "munsuro-vista-thepark",
+  "version": "1.0.0",
+  "description": "문수로 비스타동원 더파크 관심고객 등록 랜딩페이지",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["real-estate", "landing-page", "supabase", "vercel"],
+  "author": "irunda",
+  "license": "ISC"
+}

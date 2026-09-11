@@ -1,0 +1,16 @@
+# Environment variables
+.env.local
+.env*.local
+
+# Node modules
+node_modules/
+npm-debug.log*
+
+# Database & Local storage
+data/
+*.db
+*.sqlite
+
+# OS generated
+.DS_Store
+Thumbs.db

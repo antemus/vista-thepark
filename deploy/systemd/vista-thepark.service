@@ -1,0 +1,17 @@
+[Unit]
+Description=Munsuro Vista The Park Registration Server (irunda.co.kr)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/vista-thepark
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5s
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=ADMIN_PASSWORD=1234
+
+[Install]
+WantedBy=multi-user.target
