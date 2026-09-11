@@ -328,6 +328,26 @@ img {
   background: rgba(255, 255, 255, 0.2);
 }
 
+.floating-btn-kakao {
+  background: #fee500;
+  color: #191919;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.floating-btn-kakao:hover {
+  background: #fdd835;
+  transform: scale(1.03);
+}
+
 .floating-top-btn {
   background: transparent;
   color: rgba(255, 255, 255, 0.5);
@@ -2200,6 +2220,28 @@ img {
   background: #1e293b;
 }
 
+.btn-kakao-chat {
+  flex: 1;
+  min-width: 180px;
+  background: #fee500;
+  color: #191919;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.35);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-kakao-chat:hover {
+  background: #fdd835;
+  transform: translateY(-2px);
+}
+
 /* 하단 3개 보조 정보 카드 */
 .agency-sub-grid {
   display: grid;
@@ -2377,6 +2419,22 @@ img {
   color: #fff;
   font-size: 12px;
   font-weight: 700;
+  gap: 2px;
+}
+
+.mobile-btn-kakao {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #fee500;
+  border: 1px solid #e5ce00;
+  border-radius: var(--radius-sm);
+  color: #191919;
+  font-size: 12px;
+  font-weight: 800;
   gap: 2px;
 }
 

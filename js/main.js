@@ -116,8 +116,38 @@ function initCustomerForm() {
   const form = document.getElementById("customerForm");
   if (!form) return;
 
+  const phoneInput = document.getElementById("userPhone");
+  const birthInput = document.getElementById("userBirth");
+
+  // 1. 휴대폰 번호 입력 시 '-' 양식 자동 서식화
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      let val = this.value.replace(/[^0-9]/g, "");
+      if (val.length > 11) val = val.slice(0, 11);
+
+      if (val.length <= 3) {
+        this.value = val;
+      } else if (val.length <= 7) {
+        this.value = `${val.slice(0, 3)}-${val.slice(3)}`;
+      } else if (val.length <= 10) {
+        // 10자리 번호 (예: 011-123-4567 또는 010-123-4567)
+        this.value = `${val.slice(0, 3)}-${val.slice(3, 6)}-${val.slice(6)}`;
+      } else {
+        // 11자리 번호 (예: 010-1234-5678)
+        this.value = `${val.slice(0, 3)}-${val.slice(3, 7)}-${val.slice(7)}`;
+      }
+    });
+  }
+
+  // 2. 생년월일 6자리 숫자만 입력 제한
+  if (birthInput) {
+    birthInput.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, "").slice(0, 6);
+    });
+  }
+
   const btnSubmit = form.querySelector(".btn-submit-form");
-  const originalBtnText = btnSubmit ? btnSubmit.innerHTML : "사전등록 신청하기";
+  const originalBtnText = btnSubmit ? btnSubmit.innerHTML : "관심고객 사전등록 완료하기";
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -218,7 +248,12 @@ function initCustomerForm() {
         newCustomer.id = result.id;
       }
 
-      // 성공 모달 띄우기 (데이터 표시)
+      // 등록완료 알림창 표시
+      alert(
+        `🎉 [문수로 비스타동원 더파크]\n\n${name} 고객님의 관심고객 사전등록이 정상 접수되었습니다!\n\n이룬다 공인중개사사무소 장혜경 소장이 확인 후 맞춤 분양정보 및 일정을 유선으로 신속히 안내해 드리겠습니다.`
+      );
+
+      // 성공 모달 띄우기 (상세 내역 표시)
       showSuccessModal(newCustomer);
 
       // 폼 초기화
@@ -570,8 +605,6 @@ function exportCustomersToCsv() {
   const list = getCustomersFromStorage();
   if (list.length === 0) {
     alert("내보낼 관심고객 데이터가 없습니다.");
-    return;
-  }
     return;
   }
 
