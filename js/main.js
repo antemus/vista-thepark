@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 6. 실시간 등록 알림 롤링 티커 (전환율 극대화 장치)
   initLiveTicker();
+
+  // 7. 라이트박스 뷰어 줌/팬 제어 초기화
+  initLightboxZoomControls();
 });
 
 /**
@@ -736,8 +739,56 @@ function initLiveTicker() {
 }
 
 /**
- * 공식 고화질 이미지 Lightbox 팝업 열기
+ * 공식 고화질 이미지 Lightbox 팝업 및 줌/팬 인터랙션 제어
  */
+let lightboxState = {
+  scale: 1,
+  panX: 0,
+  panY: 0,
+  isDragging: false,
+  startX: 0,
+  startY: 0,
+  initialDistance: 0,
+  initialScale: 1
+};
+
+function updateLightboxTransform(animate = false) {
+  const transformWrap = document.getElementById("lightboxTransformWrap");
+  const badge = document.getElementById("lightboxZoomBadge");
+  if (!transformWrap) return;
+
+  if (animate) {
+    transformWrap.classList.remove("no-transition");
+  } else {
+    transformWrap.classList.add("no-transition");
+  }
+
+  transformWrap.style.transform = `translate(${lightboxState.panX}px, ${lightboxState.panY}px) scale(${lightboxState.scale})`;
+  if (badge) {
+    badge.textContent = `${Math.round(lightboxState.scale * 100)}%`;
+  }
+}
+
+function resetLightboxZoom() {
+  lightboxState.scale = 1;
+  lightboxState.panX = 0;
+  lightboxState.panY = 0;
+  updateLightboxTransform(true);
+}
+
+function zoomLightbox(delta) {
+  let newScale = Math.round((lightboxState.scale + delta) * 10) / 10;
+  if (newScale < 0.8) newScale = 0.8;
+  if (newScale > 3.5) newScale = 3.5;
+
+  lightboxState.scale = newScale;
+  if (newScale <= 1) {
+    lightboxState.panX = 0;
+    lightboxState.panY = 0;
+  }
+  updateLightboxTransform(true);
+}
+
 window.openLightbox = function (src) {
   const modal = document.getElementById("lightboxModal");
   const img = document.getElementById("lightboxImg");
@@ -746,28 +797,118 @@ window.openLightbox = function (src) {
   img.src = src;
   modal.classList.add("active");
   document.body.style.overflow = "hidden";
+  resetLightboxZoom();
 };
 
-/**
- * Lightbox 팝업 닫기
- */
 window.closeLightbox = function (e) {
-  if (e && e.target && e.target.id === "lightboxImg") return; // 이미지 클릭 시 닫히지 않음
   const modal = document.getElementById("lightboxModal");
   if (!modal) return;
-
   modal.classList.remove("active");
   document.body.style.overflow = "";
+  resetLightboxZoom();
 };
+
+function initLightboxZoomControls() {
+  const modal = document.getElementById("lightboxModal");
+  const viewport = document.getElementById("lightboxViewport");
+  const btnIn = document.getElementById("btnZoomIn");
+  const btnOut = document.getElementById("btnZoomOut");
+  const btnReset = document.getElementById("btnZoomReset");
+  const btnClose = document.getElementById("btnLightboxClose");
+
+  if (!modal || !viewport) return;
+
+  if (btnIn) btnIn.addEventListener("click", () => zoomLightbox(0.3));
+  if (btnOut) btnOut.addEventListener("click", () => zoomLightbox(-0.3));
+  if (btnReset) btnReset.addEventListener("click", resetLightboxZoom);
+  if (btnClose) btnClose.addEventListener("click", window.closeLightbox);
+
+  // 마우스 휠 줌
+  viewport.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    const delta = e.deltaY < 0 ? 0.2 : -0.2;
+    zoomLightbox(delta);
+  }, { passive: false });
+
+  // 더블 클릭 시 확대 / 100% 토글
+  viewport.addEventListener("dblclick", function (e) {
+    e.preventDefault();
+    if (lightboxState.scale > 1.2) {
+      resetLightboxZoom();
+    } else {
+      lightboxState.scale = 2.0;
+      updateLightboxTransform(true);
+    }
+  });
+
+  // 마우스 드래그 이동
+  viewport.addEventListener("mousedown", function (e) {
+    if (e.button !== 0) return; // 좌클릭만
+    lightboxState.isDragging = true;
+    lightboxState.startX = e.clientX - lightboxState.panX;
+    lightboxState.startY = e.clientY - lightboxState.panY;
+    viewport.classList.add("is-dragging");
+  });
+
+  window.addEventListener("mousemove", function (e) {
+    if (!lightboxState.isDragging) return;
+    lightboxState.panX = e.clientX - lightboxState.startX;
+    lightboxState.panY = e.clientY - lightboxState.startY;
+    updateLightboxTransform(false);
+  });
+
+  window.addEventListener("mouseup", function () {
+    if (lightboxState.isDragging) {
+      lightboxState.isDragging = false;
+      if (viewport) viewport.classList.remove("is-dragging");
+    }
+  });
+
+  // 터치 제어 (모바일 핀치 줌 & 드래그 패닝)
+  viewport.addEventListener("touchstart", function (e) {
+    if (e.touches.length === 1) {
+      lightboxState.isDragging = true;
+      lightboxState.startX = e.touches[0].clientX - lightboxState.panX;
+      lightboxState.startY = e.touches[0].clientY - lightboxState.panY;
+    } else if (e.touches.length === 2) {
+      lightboxState.isDragging = false;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      lightboxState.initialDistance = Math.hypot(dx, dy);
+      lightboxState.initialScale = lightboxState.scale;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener("touchmove", function (e) {
+    if (e.touches.length === 1 && lightboxState.isDragging) {
+      lightboxState.panX = e.touches[0].clientX - lightboxState.startX;
+      lightboxState.panY = e.touches[0].clientY - lightboxState.startY;
+      updateLightboxTransform(false);
+    } else if (e.touches.length === 2 && lightboxState.initialDistance > 0) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.hypot(dx, dy);
+      const factor = dist / lightboxState.initialDistance;
+      let newScale = Math.round(lightboxState.initialScale * factor * 10) / 10;
+      if (newScale < 0.8) newScale = 0.8;
+      if (newScale > 3.5) newScale = 3.5;
+      lightboxState.scale = newScale;
+      updateLightboxTransform(false);
+    }
+  }, { passive: true });
+
+  viewport.addEventListener("touchend", function (e) {
+    if (e.touches.length === 0) {
+      lightboxState.isDragging = false;
+      lightboxState.initialDistance = 0;
+    }
+  });
+}
 
 // ESC 키로 Lightbox 닫기
 window.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
-    const modal = document.getElementById("lightboxModal");
-    if (modal && modal.classList.contains("active")) {
-      modal.classList.remove("active");
-      document.body.style.overflow = "";
-    }
+    window.closeLightbox();
   }
 });
 

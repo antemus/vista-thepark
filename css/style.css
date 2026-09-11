@@ -1203,23 +1203,22 @@ img {
 /* 공급안내 이미지 프리뷰 프레임 & 하이라이트 칩 */
 .supply-preview-frame {
   width: 100%;
-  height: 380px;
+  max-width: 520px;
+  height: auto;
+  margin: 0 auto 16px;
   background: #fdfdfd;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   overflow: hidden;
   position: relative;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
+  display: block;
 }
 
 .supply-preview-frame img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
+  display: block;
   transition: transform 0.3s ease;
 }
 
@@ -1846,51 +1845,157 @@ img {
   color: #fff;
 }
 
-/* 이미지 팝업 모달 (Lightbox) */
+/* 이미지 팝업 모달 (Lightbox with Zoom & Pan) */
 .lightbox-modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.88);
-  z-index: 2000;
+  background: rgba(10, 15, 20, 0.94);
+  z-index: 3000;
   display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  backdrop-filter: blur(8px);
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  user-select: none;
+  overflow: hidden;
 }
 
 .lightbox-modal.active {
   display: flex;
 }
 
-.lightbox-content-wrap {
-  position: relative;
-  max-width: 95vw;
-  max-height: 92vh;
-  animation: modalPop 0.25s ease-out;
+/* 라이트박스 상단 툴바 */
+.lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 10;
+  gap: 12px;
 }
 
-.lightbox-img {
-  max-width: 100%;
-  max-height: 90vh;
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  background: #fff;
+.lightbox-title-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lightbox-zoom-badge {
+  background: var(--gold-gradient, linear-gradient(135deg, #d4af37, #aa820a));
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  min-width: 52px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.lightbox-hint {
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+@media (max-width: 640px) {
+  .lightbox-hint {
+    display: none;
+  }
+}
+
+.lightbox-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-zoom {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.btn-zoom:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-zoom:active {
+  transform: scale(0.96);
 }
 
 .btn-lightbox-close {
-  position: absolute;
-  top: -42px;
-  right: 0;
-  color: #fff;
-  font-size: 32px;
-  background: none;
-  border: none;
+  background: rgba(239, 68, 68, 0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  font-size: 20px;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+  transition: all 0.2s ease;
+  margin-left: 6px;
+}
+
+.btn-lightbox-close:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* 뷰포트 영역 */
+.lightbox-viewport {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.lightbox-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.lightbox-content-wrap {
+  transform-origin: center center;
+  will-change: transform;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease-out;
+}
+
+.lightbox-content-wrap.no-transition {
+  transition: none;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  background: #fff;
+  pointer-events: none; /* 드래그 시 이미지 기본 드래그 방지 */
 }
 
 .location-card-title {
