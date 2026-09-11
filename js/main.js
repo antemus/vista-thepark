@@ -1,5 +1,5 @@
-/**
- * 문수로 비스타동원 더파크 - 관심고객 등록 웹사이트 인터랙션 및 관리 스크립트
+﻿/**
+ * 문수로 비스타 더파크 - 관심고객 등록 웹사이트 인터랙션 및 관리 스크립트
  */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -63,7 +63,7 @@ function initAgencyInfo() {
   if (mobileCallBtn && directPhone) mobileCallBtn.href = `tel:${directPhone}`;
   if (mobileSmsBtn && directPhone) {
     mobileSmsBtn.href = `sms:${directPhone}?body=${encodeURIComponent(
-      "[문수로 비스타동원 더파크] 분양 일정 및 청약 상담 요청합니다."
+      "[문수로 비스타 더파크] 분양 일정 및 청약 상담 요청합니다."
     )}`;
   }
 }
@@ -253,7 +253,7 @@ function initCustomerForm() {
 
       // 등록완료 알림창 표시
       alert(
-        `🎉 [문수로 비스타동원 더파크]\n\n${name} 고객님의 관심고객 사전등록이 정상 접수되었습니다!\n\n이룬다 공인중개사사무소 장혜경 소장이 확인 후 맞춤 분양정보 및 일정을 유선으로 신속히 안내해 드리겠습니다.`
+        `🎉 [문수로 비스타 더파크]\n\n${name} 고객님의 관심고객 사전등록이 정상 접수되었습니다!\n\n이룬다부동산중개 장혜경 소장이 확인 후 맞춤 분양정보 및 일정을 유선으로 신속히 안내해 드리겠습니다.`
       );
 
       // 성공 모달 띄우기 (상세 내역 표시)
