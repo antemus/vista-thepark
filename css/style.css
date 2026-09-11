@@ -2426,20 +2426,30 @@ img {
 /* --------------------------------------------------
    13. Modals (완료 모달, 약관 모달, 관리자 패널)
    -------------------------------------------------- */
+/* 모달 열렸을 때 화면 스크롤/바운스 잠금 */
+body.modal-open, html.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+  height: 100vh !important;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 99999;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -2448,14 +2458,16 @@ img {
 
 .modal-dialog {
   background: #ffffff;
-  border-radius: var(--radius-lg);
+  border-radius: 20px;
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
   position: relative;
-  animation: modalPop 0.25s ease-out;
+  box-sizing: border-box;
+  animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: auto;
 }
 
 .modal-dialog.large {
@@ -2477,10 +2489,14 @@ img {
 }
 
 .btn-modal-close {
+  background: transparent;
+  border: none;
   font-size: 24px;
   color: var(--text-muted);
   line-height: 1;
   padding: 4px;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .btn-modal-close:hover {
@@ -2489,6 +2505,7 @@ img {
 
 .modal-body {
   padding: 24px;
+  box-sizing: border-box;
 }
 
 .modal-footer {
@@ -2502,7 +2519,9 @@ img {
 /* 완료 모달 디자인 */
 .success-box {
   text-align: center;
-  padding: 10px 0;
+  padding: 4px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .success-icon {
@@ -2515,49 +2534,94 @@ img {
   align-items: center;
   justify-content: center;
   font-size: 32px;
+  font-weight: bold;
   margin: 0 auto 16px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
 }
 
 .success-title {
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 800;
   color: var(--primary-deep);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
 }
 
 .success-desc {
-  font-size: 15px;
+  font-size: 14.5px;
   color: var(--text-sub);
   line-height: 1.6;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  word-break: keep-all;
+}
+
+.success-desc strong {
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .success-info-table {
-  background: var(--bg-page);
-  border-radius: var(--radius-sm);
-  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
   text-align: left;
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 13.5px;
+  margin-bottom: 22px;
+  box-sizing: border-box;
 }
 
 .success-info-table div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #e2e8f0;
 }
 
 .success-info-table div:last-child {
-  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 2px;
 }
 
 .success-info-table span:first-child {
-  color: var(--text-muted);
+  color: #64748b;
+  font-size: 13px;
+  flex-shrink: 0;
+  min-width: 60px;
 }
 
 .success-info-table span:last-child {
   font-weight: 700;
-  color: var(--text-main);
+  color: #0f172a;
+  text-align: right;
+  word-break: break-all;
+  max-width: 70%;
+}
+
+.btn-modal-confirm {
+  width: 100%;
+  background: var(--gold-gradient);
+  color: var(--primary-deep);
+  font-size: 17px;
+  font-weight: 800;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(197, 168, 128, 0.4);
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.btn-modal-confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(197, 168, 128, 0.55);
+}
+
+.btn-modal-confirm:active {
+  transform: translateY(0);
 }
 
 /* 관리자 패널 */

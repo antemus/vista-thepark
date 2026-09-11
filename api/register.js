@@ -14,8 +14,25 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { userName, userPhone, userBirth, housingType, purpose, userRegion, userMessage } = body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (e) {
+        body = {};
+      }
+    } else if (Buffer.isBuffer(body)) {
+      try {
+        body = JSON.parse(body.toString('utf8'));
+      } catch (e) {
+        body = {};
+      }
+    }
+    if (!body || typeof body !== 'object') {
+      body = {};
+    }
+
+    const { userName, userPhone, userBirth, housingType, purpose, userRegion, userMessage } = body;
 
     if (!userName || !userName.trim()) {
       return res.status(400).json({ error: '성함을 입력해주세요.' });

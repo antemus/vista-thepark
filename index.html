@@ -976,18 +976,19 @@
   <!-- 등록 완료 모달 -->
   <div class="modal-overlay" id="successModal">
     <div class="modal-dialog">
-      <div class="modal-body">
+      <button type="button" class="btn-modal-close" id="btnCloseSuccessIcon" aria-label="닫기" style="position:absolute; top:16px; right:16px; font-size:26px; line-height:1; z-index:10;">&times;</button>
+      <div class="modal-body" style="padding: 32px 24px 24px;">
         <div class="success-box">
           <div class="success-icon">✓</div>
           <h3 class="success-title">사전등록이 완료되었습니다!</h3>
           <p class="success-desc">
-            문수로 비스타동원 더파크 <strong>계약 축하 지원금(캐시백)</strong> 대상자로 정상 등록되었습니다.<br>
-            이룬다 부동산 장혜경 소장이 확인 후 빠른 시일 내 맞춤 분양 정보 및 일정을 안내해 드리겠습니다.
+            문수로 비스타동원 더파크 <strong>계약 축하 지원금(캐시백)</strong> 대상자로 정상 접수되었습니다.<br>
+            이룬다 부동산 장혜경 소장이 확인 후 빠른 시일 내 맞춤 분양 정보 및 일정을 유선으로 안내해 드리겠습니다.
           </p>
           <div class="success-info-table" id="successSummary">
             <!-- JS 동적 주입 -->
           </div>
-          <button type="button" class="btn-submit-form" id="btnCloseSuccess">
+          <button type="button" class="btn-modal-confirm" id="btnCloseSuccess">
             확인
           </button>
         </div>

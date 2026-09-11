@@ -157,11 +157,16 @@ function initCustomerForm() {
       return;
     }
 
+    // 가상 키보드 즉시 닫기 (모바일 뷰포트 왜곡 방지)
+    if (document.activeElement && typeof document.activeElement.blur === "function") {
+      document.activeElement.blur();
+    }
+
     // 전송 중 중복 클릭 방지
     if (btnSubmit) {
       btnSubmit.disabled = true;
       btnSubmit.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite; vertical-align:middle; margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
         <span>안전하게 접수 중...</span>
       `;
     }
@@ -184,10 +189,10 @@ function initCustomerForm() {
       message: message || "없음"
     };
 
-    // 1. 브라우저 로컬 스토리지에 백업 저장 (Dual-Save)
+    // 1. 브라우저 로컬 스토리지에 우선 백업 저장
     saveCustomerToStorage(newCustomer);
 
-    // 2. 서버 및 Supabase 클라우드 데이터베이스로 전송
+    // 2. 서버 API 및 Supabase 클라우드 데이터베이스 전송
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -204,16 +209,26 @@ function initCustomerForm() {
       });
 
       if (!response.ok) {
-        console.warn("Server API warning, saved locally:", await response.text());
-      } else {
-        const result = await response.json();
-        if (result && result.id) {
-          newCustomer.id = result.id;
-        }
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.error || "데이터베이스 저장 중 오류가 발생했습니다.");
       }
+
+      const result = await response.json();
+      if (result && result.id) {
+        newCustomer.id = result.id;
+      }
+
+      // 성공 모달 띄우기 (데이터 표시)
+      showSuccessModal(newCustomer);
+
+      // 폼 초기화
+      form.reset();
     } catch (apiErr) {
-      // 로컬 파일 모드(file://)이거나 오프라인일 때도 로컬스토리지에 저장되어 안전함
-      console.log("Local mode or network offline, fallback to LocalStorage.");
+      console.error("Registration error:", apiErr);
+      alert(
+        apiErr.message ||
+        "등록 처리 중 네트워크 오류가 발생했습니다.\n잠시 후 다시 시도해 주시거나 대표번호(010-2772-1719)로 문의해 주세요."
+      );
     } finally {
       // 버튼 복구
       if (btnSubmit) {
@@ -221,12 +236,6 @@ function initCustomerForm() {
         btnSubmit.innerHTML = originalBtnText;
       }
     }
-
-    // 성공 모달 띄우기
-    showSuccessModal(newCustomer);
-
-    // 폼 초기화
-    form.reset();
   });
 }
 
@@ -279,21 +288,29 @@ function showSuccessModal(customer) {
     `;
   }
 
-  if (modal) modal.classList.add("active");
+  if (modal) {
+    modal.classList.add("active");
+    document.body.classList.add("modal-open");
+    document.documentElement.classList.add("modal-open");
+  }
 }
 
 /**
  * 모달창 제어 로직
  */
 function initModals() {
-  // 완료 모달 닫기
   const successModal = document.getElementById("successModal");
   const btnCloseSuccess = document.getElementById("btnCloseSuccess");
-  if (btnCloseSuccess && successModal) {
-    btnCloseSuccess.addEventListener("click", () => {
-      successModal.classList.remove("active");
-    });
-  }
+  const btnCloseSuccessIcon = document.getElementById("btnCloseSuccessIcon");
+
+  const closeSuccess = () => {
+    if (successModal) successModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("modal-open");
+  };
+
+  if (btnCloseSuccess) btnCloseSuccess.addEventListener("click", closeSuccess);
+  if (btnCloseSuccessIcon) btnCloseSuccessIcon.addEventListener("click", closeSuccess);
 
   // 개인정보 약관 모달
   const privacyModal = document.getElementById("privacyModal");
@@ -301,19 +318,23 @@ function initModals() {
   const btnClosePrivacy = document.getElementById("btnClosePrivacy");
   const btnConfirmPrivacy = document.getElementById("btnConfirmPrivacy");
 
+  const closePrivacy = () => {
+    if (privacyModal) privacyModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("modal-open");
+  };
+
   if (btnPrivacyModal && privacyModal) {
     btnPrivacyModal.addEventListener("click", () => {
       privacyModal.classList.add("active");
+      document.body.classList.add("modal-open");
+      document.documentElement.classList.add("modal-open");
     });
   }
-  if (btnClosePrivacy && privacyModal) {
-    btnClosePrivacy.addEventListener("click", () => {
-      privacyModal.classList.remove("active");
-    });
-  }
+  if (btnClosePrivacy) btnClosePrivacy.addEventListener("click", closePrivacy);
   if (btnConfirmPrivacy && privacyModal) {
     btnConfirmPrivacy.addEventListener("click", () => {
-      privacyModal.classList.remove("active");
+      closePrivacy();
       const checkbox = document.getElementById("privacyAgree");
       if (checkbox) checkbox.checked = true;
     });
@@ -323,7 +344,11 @@ function initModals() {
   [successModal, privacyModal].forEach(modal => {
     if (!modal) return;
     modal.addEventListener("click", e => {
-      if (e.target === modal) modal.classList.remove("active");
+      if (e.target === modal) {
+        modal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        document.documentElement.classList.remove("modal-open");
+      }
     });
   });
 }
@@ -347,8 +372,16 @@ function initAdminDashboard() {
 
   function openAdminModal() {
     adminModal.classList.add("active");
+    document.body.classList.add("modal-open");
+    document.documentElement.classList.add("modal-open");
     adminPasswordInput.value = "";
     adminPasswordInput.focus();
+  }
+
+  function closeAdminModal() {
+    adminModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("modal-open");
   }
 
   // 관리자 모달 열기
@@ -370,10 +403,12 @@ function initAdminDashboard() {
 
   // 관리자 모달 닫기
   if (btnCloseAdmin) {
-    btnCloseAdmin.addEventListener("click", () => {
-      adminModal.classList.remove("active");
-    });
+    btnCloseAdmin.addEventListener("click", closeAdminModal);
   }
+
+  adminModal.addEventListener("click", (e) => {
+    if (e.target === adminModal) closeAdminModal();
+  });
 
   // 로그인 버튼
   let currentAdminPassword = "";
@@ -452,7 +487,7 @@ async function renderCustomerTable() {
         }
       }
     } catch (apiErr) {
-      console.log("DB fetch skip, using local storage:", apiErr);
+      console.log("DB fetch via API skip:", apiErr);
     }
   }
 
