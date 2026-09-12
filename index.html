@@ -201,7 +201,7 @@
           <div class="reward-step-item">
             <span class="reward-step-badge">STEP 01</span>
             <h4 class="reward-step-title">본 사이트 사전등록</h4>
-            <p class="reward-step-desc">견본주택 방문 전 성함, 생년월일 6자리, 연락처를 등록하여 협력사 전산 대상자로 등재</p>
+            <p class="reward-step-desc">견본주택 방문 전 성함·생년월일 6자리·연락처 등록 (가족 중 여러 명이 청약할 경우 <strong>청약자 각자 개별 등록 필수</strong>)</p>
           </div>
 
           <div class="reward-step-item">
@@ -227,7 +227,10 @@
         <div class="reward-notice-alert">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
           <div>
-            <strong>※ 필독 유의사항:</strong> 견본주택(모델하우스)을 이미 방문하여 자체 고객상담카드를 작성하셨거나 계약을 체결하신 이후에는 협력사 전산 등록이 불가하여 축하금 대상에서 제외될 수 있습니다. <strong>반드시 모델하우스 방문 전에 본 웹사이트를 통해 사전등록을 완료</strong>해 주시기 바랍니다.
+            <strong>※ 필독 유의사항:</strong><br>
+            1. <strong>계약자 정보 일치 필수:</strong> 사전등록 정보(성함, 휴대폰 번호, 생년월일 6자리)와 <strong>향후 최종 계약자 정보가 100% 동일</strong>해야 축하 지원금 대상자로 전산 인정됩니다. 오타 없이 정확히 입력해 주세요.<br>
+            2. <strong>가족 복수 청약 시 개별 등록:</strong> 한 세대 내 부부, 자녀 등 여러 명이 각각 청약 통장을 사용하시는 경우, <strong>실제 청약하시는 모든 분이 각각 본인 명의로 사전등록</strong>을 완료하셔야 당첨 시 혜택을 받으실 수 있습니다.<br>
+            3. 견본주택(모델하우스)을 이미 방문하여 자체 고객상담카드를 작성하셨거나 계약 체결 이후에는 협력사 전산 등록이 불가하므로, <strong>반드시 모델하우스 방문 전 본 웹사이트 사전등록을 완료</strong>해 주시기 바랍니다.
           </div>
         </div>
       </div>
@@ -622,6 +625,23 @@
               <span>부담 없이 문의만 해도 괜찮아요</span>
             </div>
           </div>
+
+          <!-- 사전등록 필수 유의사항 (계약자 일치 & 가족 개별등록) -->
+          <div class="reassure-notice-box">
+            <div class="reassure-notice-item">
+              <span class="notice-icon">⚠️</span>
+              <div>
+                <strong>계약자 정보 일치 필수:</strong> 사전등록 정보(성함·휴대폰·생년월일)와 향후 <strong>실제 아파트 계약자 정보가 100% 일치</strong>해야 축하 지원금이 정상 지급됩니다.
+              </div>
+            </div>
+            <div class="reassure-notice-item">
+              <span class="notice-icon">👨‍👩‍👧‍👦</span>
+              <div>
+                <strong>가족 복수 청약 시 개별 등록:</strong> 가족 중 여러 명이 각각 청약 통장을 사용하시는 경우, <strong>실제 청약하실 모든 분이 각각 본인 명의로 사전등록</strong>을 완료해 주셔야 합니다.
+              </div>
+            </div>
+          </div>
+
           <div class="reassure-urgency">
             <span class="urgency-dot"></span>
             <strong>지금 바로 등록하세요!</strong> — 혜택은 조기 마감될 수 있습니다. 마감 전에 등록하셔야 계약 축하금 혜택을 받으실 수 있습니다.
@@ -634,8 +654,8 @@
           
           <!-- 이름 -->
           <div class="form-group">
-            <label class="form-label" for="userName">고객 성함 <span class="req">*</span></label>
-            <input type="text" id="userName" name="userName" class="form-input" placeholder="성함을 입력해주세요" required maxlength="15">
+            <label class="form-label" for="userName">고객 성함 <span class="req">*</span> <small style="font-size:12px; color:#c5a880; font-weight:normal;">(실제 청약/계약 예정자 본인 성함)</small></label>
+            <input type="text" id="userName" name="userName" class="form-input" placeholder="실제 청약자 본인 성함을 입력해주세요" required maxlength="15">
           </div>
 
           <!-- 연락처 -->
@@ -648,7 +668,9 @@
           <div class="form-group">
             <label class="form-label" for="userBirth">주민등록상 생년월일 (6자리) <span class="req">*</span></label>
             <input type="text" id="userBirth" name="userBirth" class="form-input" placeholder="생년월일 6자리 (예: 850315)" required maxlength="6" inputmode="numeric">
-            <span style="display:block; font-size:12px; color:#888; margin-top:4px;">※ 시행·시공 협력사 계약 축하금(리워드) 대상자 전산 등록 및 본인 확인용으로 사용됩니다.</span>
+            <span style="display:block; font-size:12px; color:#e06666; margin-top:5px; line-height:1.4;">
+              ※ 향후 아파트 계약 체결 시 계약자 본인 확인 및 리워드 전산 대조용으로 사용됩니다. 계약자 정보와 불일치 시 혜택 지급이 불가하므로 정확히 입력해 주세요.
+            </span>
           </div>
 
           <!-- 희망 평형 -->
