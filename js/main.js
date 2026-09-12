@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 문수로 비스타 더파크 - 관심고객 등록 웹사이트 인터랙션 및 관리 스크립트
  */
 
@@ -694,15 +694,16 @@ function initLiveTicker() {
 
   const mockEvents = [
     { location: "울산 남구", name: "김*진", type: "전용 84㎡", action: "계약 축하금(캐시백) 사전등록 완료", time: "방금 전" },
-    { location: "울산 중구", name: "이*원", type: "전용 68㎡", action: "청약 가점 1:1 상담 신청", time: "1분 전" },
-    { location: "울산 남구", name: "박*우", type: "84㎡ 로얄동", action: "계약 축하금 대상자 등록 완료", time: "3분 전" },
-    { location: "울산 북구", name: "정*희", type: "특별공급", action: "자격 진단 및 사전등록 완료", time: "4분 전" },
-    { location: "울주군", name: "최*호", type: "전용 84㎡", action: "계약 축하금(캐시백) 등록 완료", time: "7분 전" },
-    { location: "부산 해운대구", name: "강*석", type: "68/84 전체", action: "사전등록 및 1:1 상담 신청", time: "10분 전" }
+    { location: "울산 중구", name: "이*원", type: "전용 68㎡", action: "청약 가점 맞춤 상담 신청", time: "5분 전" },
+    { location: "울산 남구", name: "박*우", type: "84㎡ 로얄동", action: "계약 축하금 대상자 등록 완료", time: "12분 전" },
+    { location: "울산 북구", name: "정*희", type: "특별공급", action: "자격 진단 및 사전등록 완료", time: "18분 전" },
+    { location: "울주군", name: "최*호", type: "전용 84㎡", action: "계약 축하금(캐시백) 등록 완료", time: "25분 전" }
   ];
 
   let curIdx = 0;
   let isClosed = false;
+  let showCount = 0;
+  const MAX_SHOW_COUNT = 3; // 방문 1회당 최대 3번만 노출하여 피로도 방지
 
   if (btnClose) {
     btnClose.addEventListener("click", () => {
@@ -712,7 +713,7 @@ function initLiveTicker() {
   }
 
   function showNextTicker() {
-    if (isClosed) return;
+    if (isClosed || showCount >= MAX_SHOW_COUNT) return;
 
     const item = mockEvents[curIdx];
     tickerText.innerHTML = `
@@ -722,20 +723,23 @@ function initLiveTicker() {
     `;
 
     tickerWrap.style.display = "flex";
+    showCount++;
 
-    // 4.5초 동안 보여주고 숨기기
+    // 3.5초 동안만 간결하게 보여주고 숨기기
     setTimeout(() => {
       if (isClosed) return;
       tickerWrap.style.display = "none";
 
-      // 숨긴 뒤 5초 후에 다음 알림 표출
-      curIdx = (curIdx + 1) % mockEvents.length;
-      setTimeout(showNextTicker, 5500);
-    }, 4500);
+      if (showCount < MAX_SHOW_COUNT) {
+        // 숨긴 뒤 25초 후에 다음 알림 표출 (이전 5초 -> 25초로 대폭 연장)
+        curIdx = (curIdx + 1) % mockEvents.length;
+        setTimeout(showNextTicker, 25000);
+      }
+    }, 3500);
   }
 
-  // 첫 시작은 페이지 접속 2.5초 후
-  setTimeout(showNextTicker, 2500);
+  // 첫 시작은 페이지 접속 8초 후 (이전 2.5초 -> 8초)
+  setTimeout(showNextTicker, 8000);
 }
 
 /**
