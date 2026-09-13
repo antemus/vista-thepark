@@ -555,14 +555,28 @@ img {
    -------------------------------------------------- */
 .hero-section {
   position: relative;
-  background: linear-gradient(180deg, rgba(8, 38, 30, 0.82) 0%, rgba(6, 28, 22, 0.94) 100%),
-              url('../images/visual6.jpg') no-repeat center center / cover;
+  background-color: #061c16;
   color: #fff;
-  padding: 70px 0 80px;
+  padding: 85px 0 95px;
   overflow: hidden;
   text-align: center;
 }
 
+/* 움직이는 배경 이미지 레이어 (Ken Burns 시네마틱 줌 효과) */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: -8%;
+  left: -8%;
+  width: 116%;
+  height: 116%;
+  background: url('../images/visual6.jpg') no-repeat center center / cover;
+  animation: heroKenBurns 10s ease-in-out infinite alternate;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* 이미지 위를 은은하게 덮어주는 투명 오버레이 (배경 이미지가 환하게 드러나도록 투명도 완화) */
 .hero-section::before {
   content: "";
   position: absolute;
@@ -570,8 +584,27 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(22, 79, 62, 0.4) 0%, rgba(8, 38, 30, 0.85) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(6, 28, 22, 0.25) 0%,
+    rgba(8, 38, 30, 0.45) 50%,
+    rgba(6, 28, 22, 0.72) 100%
+  );
+  z-index: 1;
   pointer-events: none;
+}
+
+/* 배경 이미지 줌인/줌아웃 및 부드러운 패닝 애니메이션 */
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.10) translate(-2.5%, -1.5%);
+  }
+  100% {
+    transform: scale(1.05) translate(1.8%, -0.8%);
+  }
 }
 
 .hero-content {
@@ -622,6 +655,7 @@ img {
   letter-spacing: -1px;
   margin-bottom: 18px;
   word-break: keep-all;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px) {
@@ -634,13 +668,15 @@ img {
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
 }
 
 .hero-desc {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.6;
   margin-bottom: 32px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 }
 
 @media (min-width: 768px) {
