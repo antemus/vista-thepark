@@ -10,31 +10,31 @@
    1. CSS Reset & Variables
    -------------------------------------------------- */
 :root {
-  --primary-deep: #08261e;
-  --primary: #0d3b2e;
-  --primary-light: #165342;
-  --primary-subtle: #edf5f1;
+  --primary-deep: #24050b;
+  --primary: #480c16;
+  --primary-light: #6a1323;
+  --primary-subtle: #faf1f2;
   
   --gold: #c5a880;
   --gold-light: #e5d2b8;
   --gold-dark: #a9895c;
   --gold-gradient: linear-gradient(135deg, #dfc6a5 0%, #c5a880 50%, #9e7f52 100%);
   
-  --text-main: #192421;
-  --text-sub: #546560;
-  --text-muted: #83938d;
+  --text-main: #1f1416;
+  --text-sub: #5c4d50;
+  --text-muted: #8c7b7e;
   --text-white: #ffffff;
   
-  --bg-page: #f8faf9;
+  --bg-page: #faf7f7;
   --bg-card: #ffffff;
-  --bg-dark: #061c16;
+  --bg-dark: #1a0408;
   
-  --border-light: #e2ebe6;
+  --border-light: #eee4e5;
   --border-gold: rgba(197, 168, 128, 0.4);
   
-  --shadow-sm: 0 2px 8px rgba(13, 59, 46, 0.06);
-  --shadow-md: 0 6px 20px rgba(13, 59, 46, 0.08);
-  --shadow-lg: 0 14px 36px rgba(13, 59, 46, 0.12);
+  --shadow-sm: 0 2px 8px rgba(72, 12, 22, 0.06);
+  --shadow-md: 0 6px 20px rgba(72, 12, 22, 0.08);
+  --shadow-lg: 0 14px 36px rgba(72, 12, 22, 0.14);
   --shadow-gold: 0 8px 24px rgba(197, 168, 128, 0.25);
   
   --radius-sm: 8px;
@@ -115,10 +115,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 38, 30, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+  background: linear-gradient(135deg, #460c16 0%, #24050b 100%);
+  border-bottom: 1px solid rgba(197, 168, 128, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
 }
 
@@ -226,7 +225,7 @@ img {
   top: 50%;
   transform: translateY(-50%);
   width: 170px;
-  background: rgba(8, 38, 30, 0.96);
+  background: linear-gradient(180deg, #460c16 0%, #200409 100%);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-md);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
@@ -366,7 +365,7 @@ img {
    중간 섹션 인라인 CTA 배너 (In-Content Banner)
    -------------------------------------------------- */
 .inline-cta-section {
-  background: linear-gradient(135deg, #0d3b2e 0%, #061c16 100%);
+  background: linear-gradient(135deg, #480c16 0%, #1a0408 100%);
   color: #fff;
   padding: 44px 0;
   border-top: 1px solid rgba(197, 168, 128, 0.3);
@@ -555,7 +554,7 @@ img {
    -------------------------------------------------- */
 .hero-section {
   position: relative;
-  background-color: #061c16;
+  background-color: #1a0408;
   color: #fff;
   padding: 85px 0 95px;
   overflow: hidden;
@@ -576,7 +575,7 @@ img {
   will-change: transform;
 }
 
-/* 이미지 위를 은은하게 덮어주는 투명 오버레이 (배경 이미지가 환하게 드러나도록 투명도 완화) */
+/* 이미지 위 오버레이 색상 완전 제거 - 원본 사진의 선명한 하늘/건물 그대로 노출 */
 .hero-section::before {
   content: "";
   position: absolute;
@@ -586,9 +585,9 @@ img {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(6, 28, 22, 0.25) 0%,
-    rgba(8, 38, 30, 0.45) 50%,
-    rgba(6, 28, 22, 0.72) 100%
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.35) 100%
   );
   z-index: 1;
   pointer-events: none;
@@ -618,14 +617,17 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(197, 168, 128, 0.15);
-  border: 1px solid rgba(197, 168, 128, 0.4);
+  background: rgba(26, 4, 8, 0.65);
+  border: 1px solid rgba(197, 168, 128, 0.55);
   color: var(--gold-light);
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   animation: fadeInDown 0.8s ease;
 }
 
@@ -642,20 +644,20 @@ img {
   font-family: 'Cinzel', 'Montserrat', serif;
   font-size: 15px;
   letter-spacing: 4px;
-  color: var(--gold);
+  color: var(--gold-light);
   margin-bottom: 12px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.6);
 }
 
 .hero-main-title {
   font-size: 32px;
-  line-height: 1.3;
+  line-height: 1.35;
   font-weight: 900;
   letter-spacing: -1px;
   margin-bottom: 18px;
   word-break: keep-all;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px) {
@@ -664,19 +666,67 @@ img {
   }
 }
 
-.hero-main-title .highlight {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+/* 줄별 순차 등장 모션 (Staggered Fade Up) */
+.hero-line {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroLineFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-line-1 {
+  animation-delay: 0.15s;
+  color: #ffffff;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.hero-line-2 {
+  animation-delay: 0.45s;
+  color: #ffffff;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes heroLineFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 700세대 청정 대단지 - 밝고 선명한 샴페인 골드 & 3D 텍스트 섀도우 */
+.highlight-shine {
+  display: inline-block;
+  position: relative;
+  color: #ffd666;
+  font-weight: 900;
+  text-shadow: 
+    0 3px 14px rgba(0, 0, 0, 0.95),
+    0 1px 4px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(255, 214, 102, 0.45);
+  animation: goldPulseText 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes goldPulseText {
+  0% {
+    color: #ffd666;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 214, 102, 0.3);
+  }
+  100% {
+    color: #fff2b2;
+    text-shadow: 0 3px 16px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 32px rgba(255, 242, 178, 0.7);
+  }
 }
 
 .hero-desc {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1.6;
+  color: #ffffff;
+  line-height: 1.65;
   margin-bottom: 32px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
 @media (min-width: 768px) {
@@ -694,13 +744,16 @@ img {
 }
 
 .hero-chip {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(26, 4, 8, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 8px 16px;
   border-radius: var(--radius-md);
   font-size: 14px;
-  color: #fff;
-  backdrop-filter: blur(4px);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-chip strong {
@@ -712,7 +765,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 440px;
+  max-width: 460px;
   margin: 0 auto;
 }
 
@@ -732,36 +785,44 @@ img {
   color: var(--primary-deep);
   font-size: 16px;
   font-weight: 800;
-  padding: 16px 24px;
+  padding: 16px 22px;
   border-radius: var(--radius-md);
-  box-shadow: 0 8px 25px rgba(197, 168, 128, 0.35);
+  box-shadow: 0 8px 25px rgba(197, 168, 128, 0.45);
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .btn-hero-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(197, 168, 128, 0.5);
+  box-shadow: 0 12px 30px rgba(197, 168, 128, 0.6);
 }
 
+/* 장혜경 소장 직통 전화상담 버튼 (동원 비스타 시그니처 딥 와인 솔리드 버튼) */
 .btn-hero-secondary {
   flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: linear-gradient(135deg, #7c1426 0%, #460c16 100%);
+  border: 1.5px solid var(--gold);
+  color: #ffffff;
   font-size: 16px;
-  font-weight: 700;
-  padding: 16px 24px;
+  font-weight: 800;
+  padding: 16px 22px;
   border-radius: var(--radius-md);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
   transition: all 0.25s ease;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .btn-hero-secondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #91182d 0%, #59101d 100%);
+  border-color: #ffd666;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(124, 20, 38, 0.5);
+  color: #ffffff;
 }
 
 /* --------------------------------------------------
@@ -1466,7 +1527,7 @@ img {
    8. Registration Form Section (관심고객 등록 폼)
    -------------------------------------------------- */
 .form-section {
-  background: radial-gradient(circle at 50% 10%, #0d3b2e 0%, var(--primary-deep) 100%);
+  background: radial-gradient(circle at 50% 10%, #480c16 0%, var(--primary-deep) 100%);
   color: #fff;
   padding: 70px 0;
   position: relative;
@@ -1577,7 +1638,7 @@ img {
 }
 
 .form-radio-input:checked + .form-radio-label {
-  background: rgba(13, 59, 46, 0.08);
+  background: rgba(72, 12, 22, 0.08);
   border-color: var(--primary);
   color: var(--primary);
   font-weight: 700;
@@ -2461,9 +2522,10 @@ img {
    11. Footer & Admin Button
    -------------------------------------------------- */
 .footer {
-  background: var(--bg-dark);
-  color: rgba(255, 255, 255, 0.6);
-  padding: 45px 0 35px;
+  background: linear-gradient(180deg, #360710 0%, #1c0307 100%);
+  border-top: 2px solid rgba(197, 168, 128, 0.4);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 50px 0 40px;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -2533,7 +2595,7 @@ img {
   left: 0;
   right: 0;
   height: var(--bottom-bar-height);
-  background: rgba(8, 38, 30, 0.96);
+  background: rgba(36, 5, 11, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(197, 168, 128, 0.3);
@@ -2946,20 +3008,20 @@ body.modal-open, html.modal-open {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: linear-gradient(135deg, #1a7a4a 0%, #0f5c35 100%);
+  background: linear-gradient(135deg, #8a192e 0%, #5e0e1d 100%);
   color: #fff;
   font-weight: 700;
   font-size: 13px;
   padding: 8px 13px;
   border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(26, 122, 74, 0.35);
+  box-shadow: 0 4px 12px rgba(138, 25, 46, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
 
 .btn-header-register:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(26, 122, 74, 0.45);
+  box-shadow: 0 6px 16px rgba(138, 25, 46, 0.45);
   color: #fff;
 }
 
