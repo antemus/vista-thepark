@@ -14,7 +14,7 @@ const SITE_CONFIG = {
     regAgency: "울산 남구청 정식 개설 등록 업소",
     businessHoursWeekday: "09:00 ~ 19:00",
     businessHoursWeekend: "예약제 현장 안내 (영업시간 외 및 공휴일 상시 전화/문자 상담 가능)",
-    specialties: ["문수로 비스타 더파크 전문상담", "문수로 비스타 더파크 MGM 협력상담", "울산 상가/건물 전문", "아파트/오피스텔 매매·임대", "수익형 부동산 자산분석"],
+    specialties: ["문수로 비스타 더파크 전문", "문수비스타동원 전문", "공식 MGM 협력 상담", "울산 상가/건물 전문", "아파트/오피스텔 매매·임대", "수익형 부동산 자산분석"],
     kakaoOpenChat: "https://open.kakao.com/o/sGpdIfki"
   },
 
