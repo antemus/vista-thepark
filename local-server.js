@@ -1,5 +1,5 @@
 /**
- * 문수로 비스타동원 더파크 - 로컬 개발 및 독립 호스팅용 Node.js 서버
+ * 문수로 비스타 더파크 - 로컬 개발 및 독립 호스팅용 Node.js 서버
  * (Node.js 내장 모듈만 사용하여 npm install 없이 즉시 구동 가능)
  */
 
@@ -127,7 +127,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\n======================================================`);
-  console.log(`🚀 [문수로 비스타동원 더파크] 웹 서버 구동 완료!`);
+  console.log(`🚀 [문수로 비스타 더파크] 웹 서버 구동 완료!`);
   console.log(`📡 접속 URL: http://localhost:${PORT}`);
   console.log(`🗄️  Supabase DB 연동: ${process.env.SUPABASE_URL || '연결됨'}`);
   console.log(`🔑 관리자 패널 단축키: Ctrl + Shift + A (비밀번호: ${process.env.ADMIN_PASSWORD || '1234'})`);

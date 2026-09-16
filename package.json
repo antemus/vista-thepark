@@ -1,7 +1,7 @@
 {
   "name": "munsuro-vista-thepark",
   "version": "1.0.0",
-  "description": "문수로 비스타동원 더파크 관심고객 등록 랜딩페이지",
+  "description": "문수로 비스타 더파크 관심고객 등록 및 MGM 랜딩페이지",
   "scripts": {
     "start": "node local-server.js",
     "dev": "node local-server.js"

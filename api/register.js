@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
         name: cleanName,
         phone: cleanPhone,
         inquiry_type: 'vista_thepark',
-        property_title: '문수로 비스타동원 더파크 (계약축하금 대상)',
+        property_title: '문수로 비스타 더파크 (MGM 계약축하금 대상)',
         message: formattedMessage,
         status: 'pending'
       })

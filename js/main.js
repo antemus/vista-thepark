@@ -629,7 +629,7 @@ function exportCustomersToCsv() {
   const a = document.createElement("a");
   const today = new Date().toISOString().slice(0, 10);
   a.href = url;
-  a.download = `문수로비스타동원_관심고객명단_${today}.csv`;
+  a.download = `문수로비스타더파크_관심고객명단_${today}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -693,17 +693,18 @@ function initLiveTicker() {
   if (!tickerWrap || !tickerText) return;
 
   const mockEvents = [
-    { location: "울산 남구", name: "김*진", type: "전용 84㎡", action: "계약 축하금(캐시백) 사전등록 완료", time: "방금 전" },
-    { location: "울산 중구", name: "이*원", type: "전용 68㎡", action: "청약 가점 맞춤 상담 신청", time: "5분 전" },
-    { location: "울산 남구", name: "박*우", type: "84㎡ 로얄동", action: "계약 축하금 대상자 등록 완료", time: "12분 전" },
-    { location: "울산 북구", name: "정*희", type: "특별공급", action: "자격 진단 및 사전등록 완료", time: "18분 전" },
-    { location: "울주군", name: "최*호", type: "전용 84㎡", action: "계약 축하금(캐시백) 등록 완료", time: "25분 전" }
+    { location: "울산 남구", name: "김*진", type: "전용 84㎡", action: "MGM 계약 축하금 사전등록 완료", time: "방금 전" },
+    { location: "울산 중구", name: "이*원", type: "전용 84㎡", action: "스타벅스 쿠폰 이벤트 접수 완료", time: "3분 전" },
+    { location: "울산 남구", name: "박*우", type: "84㎡ 로얄동", action: "MGM 축하 지원금 대상자 등록", time: "7분 전" },
+    { location: "울산 북구", name: "정*희", type: "전용 84㎡", action: "청약 사전등록 접수 완료", time: "12분 전" },
+    { location: "울주군", name: "최*호", type: "전용 84㎡", action: "MGM 리워드 사전신청 완료", time: "18분 전" },
+    { location: "울산 남구", name: "강*훈", type: "전용 84㎡", action: "MGM 계약 축하금 사전등록 완료", time: "25분 전" }
   ];
 
   let curIdx = 0;
   let isClosed = false;
   let showCount = 0;
-  const MAX_SHOW_COUNT = 3; // 방문 1회당 최대 3번만 노출하여 피로도 방지
+  const MAX_SHOW_COUNT = 15; // 방문 중 적절히 유지되도록 횟수 상향
 
   if (btnClose) {
     btnClose.addEventListener("click", () => {
@@ -725,21 +726,21 @@ function initLiveTicker() {
     tickerWrap.style.display = "flex";
     showCount++;
 
-    // 3.5초 동안만 간결하게 보여주고 숨기기
+    // 4초 동안 노출 후 숨기기
     setTimeout(() => {
       if (isClosed) return;
       tickerWrap.style.display = "none";
 
       if (showCount < MAX_SHOW_COUNT) {
-        // 숨긴 뒤 25초 후에 다음 알림 표출 (이전 5초 -> 25초로 대폭 연장)
+        // 숨긴 뒤 9초 후에 다음 알림 표출 (더 자주 생생하게 노출)
         curIdx = (curIdx + 1) % mockEvents.length;
-        setTimeout(showNextTicker, 25000);
+        setTimeout(showNextTicker, 9000);
       }
-    }, 3500);
+    }, 4000);
   }
 
-  // 첫 시작은 페이지 접속 8초 후 (이전 2.5초 -> 8초)
-  setTimeout(showNextTicker, 8000);
+  // 첫 시작은 페이지 접속 3.5초 후
+  setTimeout(showNextTicker, 3500);
 }
 
 /**
