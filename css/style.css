@@ -43,7 +43,7 @@
   --radius-full: 9999px;
   
   --header-height: 70px;
-  --bottom-bar-height: 66px;
+  --bottom-bar-height: 86px;
 }
 
 *, *::before, *::after {
@@ -2663,17 +2663,70 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--bottom-bar-height);
-  background: rgba(36, 5, 11, 0.96);
+  height: auto;
+  background: rgba(36, 5, 11, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(197, 168, 128, 0.3);
+  border-top: 1.5px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  z-index: 990;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-sticky-notice-banner {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  gap: 8px;
-  z-index: 990;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(90deg, #991b1b 0%, #dc2626 50%, #991b1b 100%);
+  color: #ffffff;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  letter-spacing: -0.3px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-sticky-notice-banner strong {
+  color: #ffd666;
+}
+
+.mobile-notice-pulse {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #fca5a5;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulseRed 1s infinite;
+}
+
+.mobile-notice-sub {
+  font-size: 10px;
+  color: #fecaca;
+  font-weight: normal;
+}
+
+.mobile-notice-arrow {
+  font-size: 13px;
+  line-height: 1;
+  color: #ffd666;
+  margin-left: 2px;
+}
+
+.mobile-sticky-actions {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px 8px;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 52px;
 }
 
 @media (min-width: 992px) {
@@ -3240,208 +3293,132 @@ body.modal-open, html.modal-open {
   margin-top: 1px;
 }
 
-/* ==========================================================================
-   내일(9/18) 모델하우스 오픈 기념 긴급 공지 바 & 히어로 배너 박스
-   ========================================================================== */
+/* ================================================
+   9/18(금) 모델하우스 오픈 & 방문 전 사전등록 필수 긴급 공지
+   ================================================ */
 
-/* 1. 상단 긴급 공지 띠배너 */
-.top-urgent-bar {
-  background: linear-gradient(90deg, #7f1d1d 0%, #460c16 50%, #7f1d1d 100%);
-  border-bottom: 2px solid #f59e0b;
-  color: #ffffff;
-  padding: 10px 0;
-  position: relative;
-  z-index: 102;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+/* 1. 메인 히어로 긴급 공지 박스 */
+.hero-open-alert {
+  margin: 18px 0 20px;
+  background: linear-gradient(135deg, rgba(153, 27, 27, 0.7) 0%, rgba(69, 10, 10, 0.85) 100%);
+  border: 1.5px solid #ef4444;
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-align: left;
+  box-shadow: 0 6px 24px rgba(220, 38, 38, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: heroAlertGlow 2.5s infinite alternate;
 }
 
-.top-urgent-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  text-align: center;
+@keyframes heroAlertGlow {
+  0% { box-shadow: 0 6px 24px rgba(220, 38, 38, 0.35); border-color: #ef4444; }
+  100% { box-shadow: 0 6px 30px rgba(248, 113, 113, 0.6); border-color: #fca5a5; }
 }
 
-.top-urgent-badge {
+.hero-open-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: #dc2626;
   color: #ffffff;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
   padding: 3px 10px;
-  border-radius: var(--radius-full);
-  letter-spacing: -0.2px;
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
-  animation: urgentPulse 1.8s infinite;
+  border-radius: 9999px;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.5);
+}
+
+.pulse-red-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pulseRed 1s infinite;
+}
+
+.hero-open-msg {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.hero-open-msg strong {
+  color: #ffd666;
+}
+
+.hero-open-sub {
+  display: block;
+  font-size: 13px;
+  color: #fecaca;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+/* 2. 사전등록 폼 바로 위 유의사항 강조 카드 */
+.reassure-notice-item.notice-urgent-card {
+  background: linear-gradient(135deg, rgba(153, 27, 27, 0.45) 0%, rgba(69, 10, 10, 0.6) 100%);
+  border: 1.5px solid #ef4444;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+}
+
+.reassure-notice-item.notice-urgent-card .urgent-icon {
+  font-size: 18px;
+}
+
+.urgent-highlight-title {
+  color: #fca5a5 !important;
+  font-size: 14.5px;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.reassure-urgency.urgent-flash {
+  background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+  border-top: 1px solid #ef4444;
+  color: #fecaca;
+  border-radius: 0 0 8px 8px;
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+
+/* 3. PC 플로팅 배너 상단 긴급 띠지 */
+.floating-quick-urgent {
+  background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+  color: #ffffff;
+  padding: 8px 6px;
+  text-align: center;
+  border-bottom: 1.5px solid var(--gold);
+  line-height: 1.35;
+}
+
+.floating-quick-urgent strong {
+  color: #ffd666;
+  display: block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.floating-urgent-sub {
+  font-size: 10.5px;
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 1px;
 }
 
 .urgent-pulse-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fff;
   display: inline-block;
-  animation: blinkDot 1s infinite alternate;
-}
-
-@keyframes urgentPulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-  70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-}
-
-@keyframes blinkDot {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
-}
-
-.top-urgent-text {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #fef2f2;
-  line-height: 1.4;
-}
-
-.top-urgent-text strong {
-  color: #ffd666;
-  font-weight: 800;
-}
-
-.top-urgent-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 5px 14px;
-  border-radius: var(--radius-full);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
-}
-
-.top-urgent-btn:hover {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  transform: translateY(-1px);
-}
-
-@media (max-width: 768px) {
-  .top-urgent-bar {
-    padding: 8px 0;
-  }
-  .top-urgent-inner {
-    gap: 6px 8px;
-  }
-  .top-urgent-text {
-    font-size: 12px;
-    width: 100%;
-  }
-  .top-urgent-btn {
-    font-size: 11px;
-    padding: 4px 10px;
-  }
-}
-
-/* 2. 히어로 내 눈에 띄는 강조 박스 */
-.hero-urgent-box {
-  background: rgba(36, 5, 11, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 2px solid #f59e0b;
-  border-radius: var(--radius-md);
-  padding: 18px 22px;
-  margin: 18px 0 22px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
-  position: relative;
-  overflow: hidden;
-  text-align: left;
-}
-
-.hero-urgent-box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #ef4444, #f59e0b, #ef4444);
-  background-size: 200% 100%;
-  animation: gradientMove 3s linear infinite;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 200% 0%; }
-}
-
-.urgent-box-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.urgent-box-badge {
-  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  letter-spacing: -0.3px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-}
-
-.urgent-box-sub {
-  font-size: 12px;
-  color: #ffd666;
-  font-weight: 700;
-}
-
-.urgent-box-title {
-  font-size: 17px;
-  font-weight: 800;
-  color: #ffffff;
-  line-height: 1.4;
-  margin-bottom: 8px;
-  letter-spacing: -0.3px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.urgent-box-desc {
-  font-size: 13.5px;
-  color: rgba(255, 255, 255, 0.94);
-  line-height: 1.55;
-  margin-bottom: 0;
-}
-
-.urgent-box-desc strong {
-  color: #fde047;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-@media (max-width: 576px) {
-  .hero-urgent-box {
-    padding: 14px 14px;
-    margin: 14px 0 16px;
-  }
-  .urgent-box-title {
-    font-size: 14.5px;
-  }
-  .urgent-box-desc {
-    font-size: 12px;
-  }
+  width: 6px;
+  height: 6px;
+  background: #fca5a5;
+  border-radius: 50%;
+  margin-right: 3px;
+  vertical-align: middle;
+  animation: pulseRed 1s infinite;
 }
